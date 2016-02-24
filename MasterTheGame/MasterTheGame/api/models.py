@@ -95,15 +95,16 @@ class Session(models.Model):
     physic_attended = models.BooleanField(default=True)
     players= models.ManyToManyField('Player',null=True,blank=True)
     buddy = models.ForeignKey('Buddy',null=True,blank=True)
+    
 
 
-class Session_player(models.Model):
-    Player = models.ForeignKey('Player', null=True, blank=True)
-    Session = models.ForeignKey('Session', null=True, blank=True)
-    buddy_rating = models.IntegerField(null=True, blank=True)
-    session_rating = models.IntegerField(null=True, blank=True)
-    is_confirmed =  models.BooleanField(default=True)
-    feedback = models.TextField(null=True,blank=True)
+# class Session_player(models.Model):
+#     Player = models.ForeignKey('Player', null=True, blank=True)
+#     Session = models.ForeignKey('Session', null=True, blank=True)
+#     buddy_rating = models.IntegerField(null=True, blank=True)
+#     session_rating = models.IntegerField(null=True, blank=True)
+#     is_confirmed =  models.BooleanField(default=True)
+#     feedback = models.TextField(null=True,blank=True)
 
 class Team(models.Model):
     Session = models.ForeignKey('Session', null=True, blank=True)
@@ -124,7 +125,27 @@ class Player_rating(models.Model):
     slot =models.ForeignKey('Session')
 
 
+class Drill_images(models.Model):
+    image= models.ImageField(upload_to="Drill Images")
+    sports = models.ForeignKey('Sports')
+    set_number = models.IntegerField(null=True, blank=True)
+    image_number = models.IntegerField(null=True, blank=True)
+
+
 class Message(models.Model):
     body = models.TextField()
     message_from = models.ForeignKey('Player')
     message_to = models.ForeignKey('Buddy')
+
+class Skill_tracker(models.Model):
+    game_intelligence = models.FloatField(default=2.5,null=True, blank=True)
+    recieving = models.FloatField(default=2.5, null=True, blank=True)
+    passing = models.FloatField(default=2.5, null=True, blank=True)
+    dribbling =models.FloatField(default=2.5, null=True, blank=True)
+    attacking =models.FloatField(default=2.5, null=True, blank=True)
+    defending = models.FloatField(default=2.5, null=True, blank=True)
+    endurance = models.CharField(max_length=100,null=True,blank=True)
+    injuriy_details = models.FloatField(null=True,blank=True)
+    session = models.ForeignKey('Session')
+    player = models.ForeignKey('Player')
+    is_attended = models.BooleanField(default=False)
