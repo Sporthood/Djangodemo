@@ -95,7 +95,7 @@ class Session(models.Model):
     physic_attended = models.BooleanField(default=True)
     players= models.ManyToManyField('Player',null=True,blank=True)
     buddy = models.ForeignKey('Buddy',null=True,blank=True)
-    
+
 
 
 # class Session_player(models.Model):
