@@ -4,8 +4,8 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-BASE_URL = 'http://10.1.3.114:8080/backend'
-SITE_URL = 'http://10.1.3.114:8080/'
+BASE_URL = 'http://127.0.0.1:8000/backend'
+SITE_URL = 'http://127.0.0.1:8000/'
 
 
 #URL_PREFIX = ''

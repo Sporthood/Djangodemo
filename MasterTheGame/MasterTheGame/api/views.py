@@ -5,27 +5,57 @@ from django.core.validators import validate_email
 from api.models import *
 from django.http import HttpResponse
 import json as simplejson
-# Create your views here.
+from django.utils.crypto import get_random_string
+from django.http import HttpResponse
+import json as simplejson
+from django.contrib.sessions.backends.db import SessionStore
+from functools import wraps
+import logging
 
+
+log = logging.getLogger('api')
+
+# Create your views here.
+def checkinput(method):
+    def wrapper(func):
+        def inner_decorator(request, *args, **kwargs):
+            if request.method.upper() == method.upper():
+                req = json_request(request)
+                if req is not None:
+                    if func.__name__ not in ['login',
+                                             'signup'
+                                            ]:
+                        log.info('API : '+func.__name__+', Input: '+str(req))
+
+                    return func(request, req, *args, **kwargs)
+                else:
+                    log.error('API : Got a request with non-JSON input, Rejected.')
+                    return custom_error('Please enter a valid JSON input')
+            else:
+                log.error('API : Got a '+method.upper()+' request, Rejected.')
+                return custom_error('The Requested method is not allowed')
+        return wraps(func)(inner_decorator)
+    return wrapper
 
 @csrf_exempt
-def signup(request, data):
+@checkinput('POST')
+def signup(data,request):
     try:
-        name = str(data['name']).strip()
-        phone  = data['phone'].strip()
-        age  = data['age'].strip()
-        user_name = str(data['user_name']).strip()
-        s4u_id = str(data['s4u_id']).strip()
-        password = str(data['password']).strip()
-        type= data['role'].strip()
-    except Exception:
+        name = request['name'].strip()
+        phone = request['phone'].strip()
+        age = request['age']
+        user_name = str(request['user_name']).strip()
+        password = str(request['password']).strip()
+        type = request['role'].strip()
+    except Exception as E:
         return custom_error("signup failed")
     if len(password) < 6:
         return custom_error("password length is too slow")
 
-
-    if Buddy.objects.filter(username=name).exists():
-        return custom_error("")
+    unique_id = get_random_string(length=5)
+    s4u_id = "s4u"+unique_id
+    if Buddy.objects.filter(user_name=name).exists():
+        return custom_error("Buddy with the same username already exists.")
     try:
         buddy= Buddy()
         buddy.name=name
@@ -37,9 +67,8 @@ def signup(request, data):
         buddy.save()
 
 
-        # session = create_session(name, email, OpenCart_user.objects.get(email=email).id)
         user_dictionary = {"name": name, "phone": phone, "age": age,"user_name": user_name,"sports4You_id": s4u_id,"type": type}
-        session = request.session
+        session = SessionStore()
         session["user"] = user_dictionary
         session.set_expiry(3000)
         session.set_test_cookie()
@@ -66,3 +95,27 @@ def json_response(response, wrap=False):
     header_res = (HttpResponse(simplejson.dumps(final_response), content_type="application/json"))
 
     return header_res
+
+
+def json_request(request):
+    if request.method == 'GET':
+        req = request.GET
+        return req
+    else:
+        req = request.body
+        if not req:
+            req='{"a":"b"}'
+    if (req):
+        try:
+            if request.FILES:
+                return request.POST
+            else:
+                return simplejson.loads(req, "ISO-8859-1")
+        except Exception as e:
+            log.error("Error json-decoding input : " +e.message)
+            return None
+    else:
+        return None
+
+
+
