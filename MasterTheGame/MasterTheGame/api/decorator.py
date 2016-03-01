@@ -3,6 +3,8 @@ import json as simplejson
 from django.contrib.sessions.backends.db import SessionStore
 from functools import wraps
 import logging
+from django.core.mail import EmailMessage
+
 
 
 
@@ -67,3 +69,15 @@ def json_request(request):
             return None
     else:
         return None
+
+
+
+
+def send_email(sub, message, to_list):
+    try:
+        msg = EmailMessage(sub, message, None, to_list)
+        msg.content_subtype = "html"
+        msg.send()
+        return True
+    except:
+        return False

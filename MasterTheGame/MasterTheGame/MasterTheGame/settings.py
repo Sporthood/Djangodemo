@@ -28,6 +28,16 @@ TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = []
 
 
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'rockingmammoottyfans@gmail.com'
+EMAIL_HOST_PASSWORD = 'mammootty222'
+DEFAULT_FROM_EMAIL = 'rockingmammoottyfans@gmail.com'
+
+
+
+
 # Application definition
 
 INSTALLED_APPS = (

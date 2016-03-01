@@ -17,8 +17,7 @@ class Buddy(models.Model):
     user_name = models.CharField(max_length=100,null=True,blank=True)
     password = models.CharField(max_length=100)
     sports4You_id = models.CharField(max_length=50)
-
-
+    email =  models.EmailField(max_length=255, blank=True, null=True)
 
 
 class Package(models.Model):
@@ -34,7 +33,7 @@ class Package(models.Model):
 class Player(models.Model):
 
     package = models.ForeignKey(Package,null=True,blank=True)
-    Player_name = models.CharField(max_length=100,null=True,blank=True)
+    name = models.CharField(max_length=100,null=True,blank=True)
     start_date = models.DateField(null=True, blank=True)
     current_end_date = models.DateField(null=True, blank=True)
     fitness_score = models.IntegerField(null=True, blank=True)
