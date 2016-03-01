@@ -6,7 +6,8 @@ from django.db import models
 
 
 class Buddy(models.Model):
-
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     EXPERTISE_CHOICES = (("CERTIFIED","Certified"),("TRAINEE","Trainee"))
     TYPE_CHOICES = (("LEAD","Lead"),("SUPPORT","Support"))
     name = models.CharField(max_length=100,null=True,blank=True)
@@ -21,7 +22,8 @@ class Buddy(models.Model):
 
 
 class Package(models.Model):
-
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=100,null=True,blank=True)
     description = models.TextField(null=True,blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -31,7 +33,8 @@ class Package(models.Model):
 
 
 class Player(models.Model):
-
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     package = models.ForeignKey(Package,null=True,blank=True)
     name = models.CharField(max_length=100,null=True,blank=True)
     start_date = models.DateField(null=True, blank=True)
@@ -52,6 +55,8 @@ class Player(models.Model):
 
 
 class Sports(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     Name = models.CharField(max_length=100,null=True,blank=True)
     description = models.TextField(null=True,blank=True)
     def __str__(self):
@@ -59,6 +64,8 @@ class Sports(models.Model):
 
 
 class Location(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     City = models.ForeignKey("City")
     center = models.CharField(max_length=10, null=True,blank=True)
     latitude = models.DecimalField(max_digits=12, decimal_places=2)
@@ -73,20 +80,28 @@ class Location(models.Model):
 
 
 class City(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=100,null=True,blank=True)
     state = models.ForeignKey("State")
 
 class State(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=100,null=True,blank=True)
 
 
 class Slot(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     sports = models.ForeignKey(Sports, null=True, blank=True)
     location = models.ForeignKey(Location, null=True, blank=True)
     start_time= models.DateTimeField(blank=True, null=True)
     end_time= models.DateTimeField(blank=True, null=True)
 
 class Session(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     session_date = models.DateField(null=True, blank=True)
     session_number = models.IntegerField(null=True, blank=True)
     batch = models.ForeignKey('Slot', null=True, blank=True)
@@ -106,18 +121,24 @@ class Session(models.Model):
 #     feedback = models.TextField(null=True,blank=True)
 
 class Team(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     Session = models.ForeignKey('Session', null=True, blank=True)
     buddy = models.ForeignKey(Buddy, null=True, blank=True)
     players = models.ManyToManyField('Player')
 
 
 class Buddy_rating(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     value = models.FloatField(default=2.5)
     rated_by = models.ForeignKey('Player')
     buddy = models.ForeignKey('Buddy')
     slot =models.ForeignKey('Session')
 
 class Player_rating(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     value = models.FloatField(default=2.5)
     rated_by = models.ForeignKey('Buddy')
     buddy = models.ForeignKey('Player')
@@ -125,6 +146,8 @@ class Player_rating(models.Model):
 
 
 class Drill_images(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     image= models.ImageField(upload_to="Drill Images")
     sports = models.ForeignKey('Sports')
     set_number = models.IntegerField(null=True, blank=True)
@@ -132,11 +155,15 @@ class Drill_images(models.Model):
 
 
 class Message(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     body = models.TextField()
     message_from = models.ForeignKey('Player')
     message_to = models.ForeignKey('Buddy')
 
 class Skill_tracker(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     game_intelligence = models.FloatField(default=2.5,null=True, blank=True)
     recieving = models.FloatField(default=2.5, null=True, blank=True)
     passing = models.FloatField(default=2.5, null=True, blank=True)
