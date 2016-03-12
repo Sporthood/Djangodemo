@@ -106,3 +106,26 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+CORS_ORIGIN_ALLOW_ALL = True  # Default False
+CORS_ORIGIN_WHITELIST = (
+       'localhost:8101/'
+           )
+# CORS_ORIGIN_REGEX_WHITELIST = ('^http?://(\w+\.)?google\.com$', )
+CORS_ALLOW_METHODS = (
+       'GET',
+       'POST',
+       'PUT',
+       'PATCH',
+       'DELETE',
+       'OPTIONS'
+   )
+CORS_ALLOW_HEADERS = (
+       'x-requested-with',
+       'content-type',
+       'accept',
+       'origin',
+        'authorization'
+    )
+# CORS_EXPOSE_HEADERS = ()
+# CORS_PREFLIGHT_MAX_AGE = 86400
+CORS_ALLOW_CREDENTIALS = True
