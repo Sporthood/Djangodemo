@@ -121,3 +121,45 @@ def user_login(request, data):
 
 
 
+@csrf_exempt
+@checkinput('POST')
+def user_signup(request,data):
+    try:
+        name = data['name'].strip()
+        phone = data['phone'].strip()
+        age = data['age']
+        email = data['email']
+        user_name = str(data['user_name']).strip()
+        password = str(data['password']).strip()
+    except Exception as E:
+        return custom_error("signup failed")
+    if len(password) < 6:
+        return custom_error("password length is too slow")
+
+    unique_id = get_random_string(length=5)
+    s4u_id = "s4u"+unique_id
+    if Player.objects.filter(phone=phone).exists():
+        return custom_error("User with the same phone number already exists.")
+    try:
+        player= Player()
+        player.name=name
+        player.phone = phone
+        player.age=age
+        player.user_name=user_name
+        player.password= md5.new(password).hexdigest()
+        player.email =email
+        player.save()
+
+
+        player_dictionary = {"name": name, "phone": phone, "age": age,"user_name": user_name,"email":email}
+        session = SessionStore()
+        session["player"] = player_dictionary
+        session.set_expiry(3000)
+        session.set_test_cookie()
+        session.save()
+    except Exception as E:
+        return custom_error("signup failed")
+
+
+    return json_response({"status": 1, "buddy": session["player"], "session_key": session.session_key,
+    "success_message": "You have successfully signed up"})

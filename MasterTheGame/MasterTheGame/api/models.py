@@ -37,8 +37,8 @@ class Player(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     package = models.ForeignKey(Package,null=True,blank=True)
     name = models.CharField(max_length=100,null=True,blank=True)
-    start_date = models.DateField(null=True, blank=True)
-    current_end_date = models.DateField(null=True, blank=True)
+    user_name = models.CharField(max_length=100,null=True,blank=True)
+    password = models.CharField(max_length=100)
     fitness_score = models.IntegerField(null=True, blank=True)
     skill_score = models.IntegerField(null=True, blank=True)
     tactics_score = models.IntegerField(null=True, blank=True)
@@ -48,6 +48,11 @@ class Player(models.Model):
     current_injury_status = models.TextField(null=True,blank=True)
     rehabilitation_date = models.DateField(null=True,blank=True)
     recommended_exercises = models.TextField(null=True,blank=True)
+    email =  models.EmailField(max_length=255, blank=True, null=True)
+    phone = models.CharField(max_length=100,null=True,blank=True)
+    age = models.IntegerField(null=True,blank=True)
+
+
 
     def __str__(self):
         return self.Player_name
