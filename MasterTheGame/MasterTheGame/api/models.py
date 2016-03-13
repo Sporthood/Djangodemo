@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 
@@ -19,6 +20,7 @@ class Buddy(models.Model):
     password = models.CharField(max_length=100)
     sports4You_id = models.CharField(max_length=50)
     email =  models.EmailField(max_length=255, blank=True, null=True)
+    image = models.ImageField(upload_to='buddy_pic', blank=True, null=True)
 
 
 class Package(models.Model):
@@ -35,6 +37,7 @@ class Package(models.Model):
 class Player(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    start_date = models.DateTimeField(null=True,blank=True)
     package = models.ForeignKey(Package,null=True,blank=True)
     name = models.CharField(max_length=100,null=True,blank=True)
     user_name = models.CharField(max_length=100,null=True,blank=True)
@@ -51,7 +54,8 @@ class Player(models.Model):
     email =  models.EmailField(max_length=255, blank=True, null=True)
     phone = models.CharField(max_length=100,null=True,blank=True)
     age = models.IntegerField(null=True,blank=True)
-
+    city= models.ForeignKey('City')
+    image = models.ImageField(upload_to='player_pic', blank=True, null=True)
 
 
     def __str__(self):
@@ -72,15 +76,15 @@ class Location(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     City = models.ForeignKey("City")
-    center = models.CharField(max_length=10, null=True,blank=True)
-    latitude = models.DecimalField(max_digits=12, decimal_places=2)
-    longitude = models.DecimalField(max_digits=12, decimal_places=2)
-    face_picture = models.ImageField(upload_to='location')
+    center = models.CharField(max_length=100, null=True,blank=True)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    face_picture = models.ImageField(upload_to='location', null=True, blank=True)
     address = models.TextField(null=True,blank=True)
     centre_head = models.CharField(max_length=100,null=True,blank=True)
     centre_manager = models.CharField(max_length=100,null=True,blank=True)
-    contact_number = models.CharField(max_length=12)
-    sports = models.ForeignKey(Sports, null=True, blank=True)
+    contact_number = models.CharField(max_length=120)
+    sports = models.ForeignKey('Sports', null=True, blank=True)
 
 
 
@@ -96,24 +100,23 @@ class State(models.Model):
     name = models.CharField(max_length=100,null=True,blank=True)
 
 
-class Slot(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    sports = models.ForeignKey(Sports, null=True, blank=True)
-    location = models.ForeignKey(Location, null=True, blank=True)
-    start_time= models.DateTimeField(blank=True, null=True)
-    end_time= models.DateTimeField(blank=True, null=True)
-
 class Session(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    session_date = models.DateField(null=True, blank=True)
-    session_number = models.IntegerField(null=True, blank=True)
-    batch = models.ForeignKey('Slot', null=True, blank=True)
-    buddy_summary = models.TextField(null=True,blank=True)
-    physic_attended = models.BooleanField(default=True)
+    is_physic_attend = models.BooleanField(default=True)
     players= models.ManyToManyField('Player',null=True,blank=True)
     buddy = models.ManyToManyField('Buddy',null=True,blank=True)
+    max_player_count = models.IntegerField(default=0)
+    sports = models.ForeignKey('Sports', null=True, blank=True)
+    location = models.ForeignKey('Location', null=True, blank=True)
+    start_time= models.DateTimeField(blank=True, null=True)
+    end_time= models.DateTimeField(blank=True, null=True)
+    drill_start_time = models.DateTimeField(blank=True, null=True)
+    drill_end_time = models.DateTimeField(blank=True, null=True)
+    match_start_time = models.DateTimeField(blank=True, null=True)
+    match_end_time = models.DateTimeField(blank=True, null=True)
+    warmup_start_time = models.DateTimeField(blank=True, null=True)
+    warmup_end_time = models.DateTimeField(blank=True, null=True)
 
 
 
