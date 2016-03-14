@@ -18,6 +18,7 @@ url(r'^add_sport/$', views.add_sport, name='add_sport'),
 url(r'^add_location/$', views.add_location, name='add_location'),
 url(r'^create_session/$', views.create_session, name='create_session'),
 url(r'^join_session/$', views.join_session, name='join_session'),
+url(r'^remove_session/$', views.remove_session, name='remove_session'),
 
 
 ]

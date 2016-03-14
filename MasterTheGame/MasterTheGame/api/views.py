@@ -351,7 +351,24 @@ def join_session(request,data):
             "session_time":str(session.start_time),
             "players_count":session.players.count()
         }
-        return json_response({"status": 1,"data":dict, "success_message": "joined to created"})
+        return json_response({"status": 1,"data":dict, "success_message": "joined to session"})
     except Exception as E:
         return  custom_error("join session api failed")
 
+@csrf_exempt
+@checkinput('POST')
+def remove_session(request,data):
+    try:
+        player_id = data['player_id']
+        session_id = data['session_id']
+        player = Player.objects.get(id=player_id)
+        session = Session.objects.get(id =session_id)
+        session.players.remove(player)
+        dict = {
+            "player_name":player.name,
+            "session_time":str(session.start_time),
+            "players_count":session.players.count()
+        }
+        return json_response({"status": 1,"data":dict, "success_message": "remove from session"})
+    except Exception as E:
+        return  custom_error("remove session api failed")
