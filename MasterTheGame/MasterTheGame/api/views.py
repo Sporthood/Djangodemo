@@ -321,6 +321,7 @@ def create_session(request,data):
         end_time = data['end_time']
         session =Session()
         session.is_physic_attend = is_physic
+        session.save()
         session.buddy.add(buddy)
         session.max_player_count =max_player_count
         session.sports= sport
@@ -332,4 +333,25 @@ def create_session(request,data):
         return json_response({"status": 1, "success_message": "session created"})
     except Exception as E:
         return  custom_error("session create api failed")
+
+@csrf_exempt
+@checkinput('POST')
+def join_session(request,data):
+    try:
+        player_id = data['player_id']
+        session_id = data['session_id']
+        player = Player.objects.get(id=player_id)
+        session = Session.objects.get(id =session_id)
+        if session.players.count()<session.max_player_count:
+            session.players.add(player)
+        else:
+            return json_response({"status": 0, "success_message": "slots already filled"})
+        dict = {
+            "player_name":player.name,
+            "session_time":str(session.start_time),
+            "players_count":session.players.count()
+        }
+        return json_response({"status": 1,"data":dict, "success_message": "joined to created"})
+    except Exception as E:
+        return  custom_error("join session api failed")
 
