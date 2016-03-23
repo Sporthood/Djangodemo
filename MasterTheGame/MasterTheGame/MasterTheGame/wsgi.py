@@ -12,7 +12,6 @@ import os, sys, site
 
 VIRTUAL_ENV_PATH = ['/home/sanooj/Documents/Projects/env/lib/python2.7/site-packages']
 
-
 prev_sys_path = list(sys.path)
 # Add each new site-packages directory.
 for directory in VIRTUAL_ENV_PATH:
