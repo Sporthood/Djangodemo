@@ -11,10 +11,10 @@ SITE_URL = 'http://propicks.qburst.com/'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'propicks',
-        'USER': 'upropicks',
-        'PASSWORD': 'propicks@45%',
-        'HOST': 'localhost',
+        'NAME': 'MasterTheGame',
+        'USER': 'masterthegame',
+        'PASSWORD': 'sportsforyou',
+        'HOST': 'master.cfjahnp3vgzx.us-west-2.rds.amazonaws.com:5432',
         'PORT': '5432',
     }
 }
