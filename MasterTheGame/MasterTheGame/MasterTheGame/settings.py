@@ -36,6 +36,11 @@ EMAIL_HOST_PASSWORD = 'mammootty222'
 DEFAULT_FROM_EMAIL = 'rockingmammoottyfans@gmail.com'
 
 
+STATIC_URL = BASE_URL+'/static/'
+MEDIA_URL = BASE_URL+'/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_ROOT = os.path.join(BASE_DIR, '/static')
 
 
 # Application definition
