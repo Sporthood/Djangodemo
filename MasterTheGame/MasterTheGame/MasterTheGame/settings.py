@@ -130,7 +130,10 @@ CORS_ALLOW_HEADERS = (
        'content-type',
        'accept',
        'origin',
-        'authorization'
+        'authorization',
+        'X-CSRFToken',
+        'session-key',
+        'page',
     )
 # CORS_EXPOSE_HEADERS = ()
 # CORS_PREFLIGHT_MAX_AGE = 86400
