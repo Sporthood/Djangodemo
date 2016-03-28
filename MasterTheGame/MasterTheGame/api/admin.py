@@ -1,10 +1,10 @@
 from django.contrib import admin
 
-from django.db.models.loading import get_models, get_app
+from api.models import User
 
 
 
 
-for model in get_models(get_app('api')):
-    admin.site.register(model)
+
+admin.site.register(User)
 # Register your models here.
