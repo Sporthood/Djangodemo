@@ -113,7 +113,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 CORS_ORIGIN_ALLOW_ALL = True  # Default False
 CORS_ORIGIN_WHITELIST = (
-       'localhost:8101/'
+       'localhost:8101/',
+       'http://ec2-52-37-207-235.us-west-2.compute.amazonaws.com/',
            )
 # CORS_ORIGIN_REGEX_WHITELIST = ('^http?://(\w+\.)?google\.com$', )
 CORS_ALLOW_METHODS = (
