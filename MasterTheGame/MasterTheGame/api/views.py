@@ -236,7 +236,7 @@ def add_state(request,data):
         state = State()
         state.name = name
         state.save()
-        return json_response({"status": 1, "success_message": "state added"})
+        return json_response({"status": 1,"state_id":state.id, "success_message": "state added"})
     except Exception as E:
         return  custom_error("state add api failed")
 
@@ -251,7 +251,7 @@ def add_city(request,data):
         city.name = name
         city.state=state
         city.save()
-        return json_response({"status": 1, "success_message": "city added"})
+        return json_response({"status": 1,"city_id":city.id, "success_message": "city added"})
     except Exception as E:
         return  custom_error("city add api failed")
 
