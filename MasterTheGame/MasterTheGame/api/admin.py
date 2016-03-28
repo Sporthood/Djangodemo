@@ -1,10 +1,10 @@
 from django.contrib import admin
 
-from api.models import User
+from api.models import Player
 
 
 
 
 
-admin.site.register(User)
+admin.site.register(Player)
 # Register your models here.
