@@ -155,7 +155,7 @@ def user_signup(request,data):
         player.save()
 
 
-        player_dictionary = {"name": name, "id":player.id, "phone": phone, "age": age,"user_name": user_name,"email":email}
+        player_dictionary = {"name": name, "id":player.id , "phone": phone, "age": age,"user_name": user_name,"email":email}
         session = SessionStore()
         session["player"] = player_dictionary
         session.set_expiry(3000)
