@@ -227,6 +227,19 @@ def get_user_details(request,data):
 
 
 
+@csrf_exempt
+@checkinput('POST')
+def player_rating(request, data):
+
+    try:
+        name = data['date'].strip()
+    	response = {"status": 1, "recieving": "2.5","passing":""3.0, "dribbling": "4.0","attacking": "3.5","defending":""3.0, "endurance": "2.0", "message": "player rating success"}
+    except Exception as E:
+        return  custom_error("player rating api failed")
+    return json_response(response)
+
+
+
 
 
 
