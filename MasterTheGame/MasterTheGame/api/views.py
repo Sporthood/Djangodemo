@@ -184,7 +184,7 @@ def get_user_details(request,data):
                     "id": session.id,
                     "plyer_attend_count": session.players.count(),
                     "max_players":session.max_player_count,
-                    "session_time":session.session_time,
+                    "session_time":str(session.start_time),
                     "buddy_name":session.buddy.name,
                     "physio_name":session.buddy.name
                             }
