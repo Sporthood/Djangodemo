@@ -210,7 +210,9 @@ def get_user_details(request,data):
             player_image= ""
         player_dict = {
             "name":player.name,
-            "image_url":player_image
+            "image_url":player_image,
+	    "phone": player.phone,
+	    "age": player.age,"user_name": player.user_name,"email":player.email
         }
 
         user_details = {
