@@ -212,7 +212,7 @@ def get_user_details(request,data):
             "name":player.name,
             "image_url":player_image,
 	    "phone": player.phone,
-	    "age": player.age,"user_name": player.user_name,"email":player.email
+	    "age": player.age,"user_name": player.user_name,"email":player.email, "rating":"4.5"
         }
 
         user_details = {
@@ -223,6 +223,8 @@ def get_user_details(request,data):
         return json_response({"status": 1, "data": user_details, "success_message": "user details success"})
     except Exception as e:
         return  custom_error("get user details api failed")
+
+
 
 
 
