@@ -186,6 +186,7 @@ def get_user_details(request,data):
                     "max_players":session.max_player_count,
                     "session_time":str(session.start_time),
                     "buddy_name":session.buddy.name,
+                    "location":session.location.center,
                     "physio_name":session.buddy.name
                             }
         else:
@@ -200,6 +201,7 @@ def get_user_details(request,data):
                     "max_players":session.max_player_count,
                     "session_time":session.session_time,
                     "buddy_name":session.buddy.name,
+                    "location":session.location.center,
                     "physio_name":session.buddy.name
                             }
         else:
