@@ -177,7 +177,7 @@ def get_user_details(request,data):
         user_id = data['user_id']
         player= Player.objects.get(id=user_id)
         player_city= player.city
-        upcoming_sessions = Session.objects.filter(batch__location__city = player_city, session__session_time__lte=datetime.datetime.now()).order_by('session__session_time')
+        upcoming_sessions = Session.objects.filter(start_time__lte=datetime.datetime.now()).order_by('start_time')
         if upcoming_sessions.count()>0:
             session = upcoming_sessions[0]
             next_session_dict = {
@@ -191,7 +191,7 @@ def get_user_details(request,data):
         else:
             next_session_dict= {}
 
-        past_sessions = Session.objects.filter(batch__location__city = player_city,player=player, session__session_time__gte=datetime.datetime.now()).order_by('-session__session_time')
+        past_sessions = Session.objects.filter( start_time__gte=datetime.datetime.now()).order_by('-session__session_time')
         if past_sessions.count()>0:
             session = past_sessions[0]
             past_session_dict = {
