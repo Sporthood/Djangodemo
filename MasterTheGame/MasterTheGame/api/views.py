@@ -155,7 +155,7 @@ def user_signup(request,data):
         player.save()
 
 
-        player_dictionary = {"name": name, "id":player.id , "phone": phone, "age": age,"user_name": user_name,"email":email}
+        player_dictionary = {"name": name , "phone": phone, "age": age,"user_name": user_name,"email":email}
         session = SessionStore()
         session["player"] = player_dictionary
         session.set_expiry(3000)
@@ -165,7 +165,7 @@ def user_signup(request,data):
         return custom_error("signup failed")
 
 
-    return json_response({"status": 1, "buddy": session["player"], "session_key": session.session_key,
+    return json_response({"status": 1, "buddy": session["player"],"id":player.id, "session_key": session.session_key,
     "success_message": "You have successfully signed up"})
 
 
