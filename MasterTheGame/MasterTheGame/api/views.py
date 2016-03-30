@@ -56,7 +56,7 @@ def buddy_signup(request,data):
         return custom_error("signup failed")
 
 
-    return json_response({"status": 1, "buddy": session["buddy"], "session_key": session.session_key,
+    return json_response({"status": 1, "buddy": session["buddy"],"id":buddy.id, "session_key": session.session_key,
     "success_message": "You have successfully signed up"})
 
 
@@ -79,7 +79,7 @@ def buddy_login(request, data):
     session.set_test_cookie()
     session.save()
 
-    response = {"status": 1, "buddy": session["buddy"], "session_key": session.session_key, "message": "login success"}
+    response = {"status": 1, "buddy": session["buddy"],"id":buddy.id, "session_key": session.session_key, "message": "login success"}
     return json_response(response)
 
 
