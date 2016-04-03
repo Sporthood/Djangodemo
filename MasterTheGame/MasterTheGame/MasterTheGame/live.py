@@ -12,9 +12,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'MasterTheGame',
-        'USER': 'masterthegame',
-        'PASSWORD': 'sportsforyou',
-        'HOST': 'master.cfjahnp3vgzx.us-west-2.rds.amazonaws.com',
+        'USER': 'MasterTheGame',
+        'PASSWORD': 'MasterTheGame',
+        'HOST': 's4u.cfjahnp3vgzx.us-west-2.rds.amazonaws.com',
         'PORT': '5432',
     }
 }

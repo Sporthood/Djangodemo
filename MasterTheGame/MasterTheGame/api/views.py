@@ -235,8 +235,8 @@ def player_rating(request, data):
 
     try:
         player_id = data['player_id']
-	session_id = data['session_id']
-    	response = {"status": 1, "recieving": "2.5","passing":"3.0", "dribbling": "4.0","attacking": "3.5","defending":"3.0", "endurance": "2.0", "message": "player rating success"}
+        session_id = data['session_id']
+        response = {"status": 1, "recieving": "2.5","passing":"3.0", "dribbling": "4.0","attacking": "3.5","defending":"3.0", "endurance": "2.0", "message": "player rating success"}
     except Exception as E:
         return  custom_error("player rating api failed")
     return json_response(response)
@@ -244,7 +244,28 @@ def player_rating(request, data):
 
 
 
-
+@csrf_exempt
+@checkinput('POST')
+def player_rating(request,data):
+    try:
+        user_id = data['user_id']
+        session_id = data['session_id']
+        player= Player.objects.get(id=user_id)
+        player_rating = Skill_tracker.objects.filter(players__id = player.id,id=session_id)
+        if Player_rating.count()>0:
+            player_rating_dict = {
+                "game_intelligence": player_rating.game_intelligence,
+                "recieving": player_rating.recieving,
+                "passing":player_rating.passing,
+                "dribbling":player_rating.dribbling,
+                "attacking":player_rating.attacking,
+                "defending":player_rating.defending,
+                "endurance":player_rating.endurance,
+                "injuriy_details":player_rating.injuriy_details
+                            }
+        return json_response({"status": 1,"data":player_rating_dict, "success_message": "player rating success"})
+    except Exception as E:
+        return  custom_error("player rating api failed")
 
 
 
@@ -350,7 +371,7 @@ def create_session(request,data):
         session.end_time =end_time
         session.save()
 
-        return json_response({"status": 1, "success_message": "session created"})
+        return json_response({"status": 1,"session_id":session.id, "success_message": "session created"})
     except Exception as E:
         return  custom_error("session create api failed")
 
@@ -392,3 +413,29 @@ def remove_session(request,data):
         return json_response({"status": 1,"data":dict, "success_message": "remove from session"})
     except Exception as E:
         return  custom_error("remove session api failed")
+
+
+@csrf_exempt
+@checkinput('POST')
+def player_sessions(request,data):
+    try:
+        user_id = data['user_id']
+        session_id = data['session_id']
+        player= Player.objects.get(id=user_id)
+        past_sessions = Session.objects.filter(players__id = player.id,id=session_id,start_time__lte=datetime.datetime.now()).order_by('start_time')
+        session_list = []
+        if past_sessions.count()>0:
+            for session in past_sessions:
+                next_session_dict = {
+                    "id": session.id,
+                    "plyer_attend_count": session.players.count(),
+                    "max_players":session.max_player_count,
+                    "session_time":str(session.start_time),
+                    "buddy_name":session.buddy.name,
+                    "location":session.location.center,
+                    "physio_name":session.buddy.name
+                            }
+                session_list.append(next_session_dict)
+        return json_response({"status": 1,"data":session_list, "success_message": "player sessions success"})
+    except Exception as E:
+        return  custom_error("player session api failed")

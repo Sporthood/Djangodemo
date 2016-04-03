@@ -104,7 +104,7 @@ class Session(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_physic_attend = models.BooleanField(default=True)
-    players= models.ManyToManyField('Player',null=True,blank=True)
+    players= models.ManyToManyField('Player',related_name='player',null=True,blank=True)
     buddy = models.ManyToManyField('Buddy',null=True,blank=True)
     max_player_count = models.IntegerField(default=0)
     sports = models.ForeignKey('Sports', null=True, blank=True)
@@ -142,7 +142,7 @@ class Buddy_rating(models.Model):
     value = models.FloatField(default=2.5)
     rated_by = models.ForeignKey('Player')
     buddy = models.ForeignKey('Buddy')
-    slot =models.ForeignKey('Session')
+    # slot =models.ForeignKey('Session')
 
 class Player_rating(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -150,7 +150,7 @@ class Player_rating(models.Model):
     value = models.FloatField(default=2.5)
     rated_by = models.ForeignKey('Buddy')
     buddy = models.ForeignKey('Player')
-    slot =models.ForeignKey('Session')
+    # slot =models.ForeignKey('Session')
 
 
 class Drill_images(models.Model):
