@@ -279,7 +279,7 @@ def add_state(request,data):
         state.save()
         return json_response({"status": 1,"state_id":state.id, "success_message": "state added"})
     except Exception as E:
-        return  custom_error("state add api failed")
+        return  custom_error(E.error)
 
 @csrf_exempt
 @checkinput('POST')
@@ -293,8 +293,8 @@ def add_city(request,data):
         city.state=state
         city.save()
         return json_response({"status": 1,"city_id":city.id, "success_message": "city added"})
-    except Exception as E:
-        return  custom_error("city add api failed")
+    except Exception as e:
+        return  custom_error(e.message)
 
 
 @csrf_exempt

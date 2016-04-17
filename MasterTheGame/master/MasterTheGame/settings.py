@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-from local import *
+from live import *
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
+
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'rockingmammoottyfans@gmail.com'
 EMAIL_HOST_PASSWORD = 'mammootty222'
@@ -138,3 +139,4 @@ CORS_ALLOW_HEADERS = (
 # CORS_EXPOSE_HEADERS = ()
 # CORS_PREFLIGHT_MAX_AGE = 86400
 CORS_ALLOW_CREDENTIALS = True
+CSRF_COOKIE_SECURE = True

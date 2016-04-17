@@ -13,10 +13,10 @@ SITE_URL = 'http://127.0.0.1:8000/'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'Master1',
+        'NAME': 'developer',
         'USER': 'postgres',
-        'PASSWORD': 'newPassword',
-        'HOST': 'LOCALHOST',
+        'PASSWORD': 'dfDDrbj7',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
