@@ -227,19 +227,19 @@ def get_user_details(request,data):
         return  custom_error("get user details api failed")
 
 
-
-
-@csrf_exempt
-@checkinput('POST')
-def player_rating(request, data):
-
-    try:
-        player_id = data['player_id']
-        session_id = data['session_id']
-        response = {"status": 1, "recieving": "2.5","passing":"3.0", "dribbling": "4.0","attacking": "3.5","defending":"3.0", "endurance": "2.0", "message": "player rating success"}
-    except Exception as E:
-        return  custom_error("player rating api failed")
-    return json_response(response)
+#
+#
+# @csrf_exempt
+# @checkinput('POST')
+# def player_rating(request, data):
+#
+#     try:
+#         player_id = data['player_id']
+#         session_id = data['session_id']
+#         response = {"status": 1, "recieving": "2.5","passing":"3.0", "dribbling": "4.0","attacking": "3.5","defending":"3.0", "endurance": "2.0", "message": "player rating success"}
+#     except Exception as E:
+#         return  custom_error("player rating api failed")
+#     return json_response(response)
 
 
 
@@ -251,8 +251,8 @@ def player_rating(request,data):
         user_id = data['user_id']
         session_id = data['session_id']
         player= Player.objects.get(id=user_id)
-        player_rating = Skill_tracker.objects.filter(players__id = player.id,id=session_id)
-        if Player_rating.count()>0:
+        try:
+            player_rating = Skill_tracker.objects.get(player__id = player.id,id=session_id)
             player_rating_dict = {
                 "game_intelligence": player_rating.game_intelligence,
                 "recieving": player_rating.recieving,
@@ -263,9 +263,12 @@ def player_rating(request,data):
                 "endurance":player_rating.endurance,
                 "injuriy_details":player_rating.injuriy_details
                             }
+        except Exception as e:
+            player_rating_dict = {}
+
         return json_response({"status": 1,"data":player_rating_dict, "success_message": "player rating success"})
     except Exception as E:
-        return  custom_error("player rating api failed")
+        return  custom_error("player ratin api failed")
 
 
 

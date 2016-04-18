@@ -20,6 +20,7 @@ url(r'^create_session/$', views.create_session, name='create_session'),
 url(r'^join_session/$', views.join_session, name='join_session'),
 url(r'^remove_session/$', views.remove_session, name='remove_session'),
 url(r'^player_sessions/$', views.player_sessions, name='player_sessions'),
+url(r'^player_rating/$', views.player_rating, name='player_rating'),
 
 
 ]

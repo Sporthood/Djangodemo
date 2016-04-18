@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/1.6/howto/deployment/wsgi/
 
 import os, sys, site
 
-VIRTUAL_ENV_PATH = ['/home/developer/Project/env/lib/python2.7/site-packages']
+VIRTUAL_ENV_PATH = ['/home/sanooj/Documents/Projects/env/lib/python2.7/site-packages']
 
 prev_sys_path = list(sys.path)
 # Add each new site-packages directory.
@@ -26,7 +26,7 @@ for item in list(sys.path):
 sys.path[:0] = new_sys_path
 
 
-path = '/home/developer/Project/sportz4you/MasterTheGame/master'
+path = '/home/sanooj/Documents/Projects/sportz4you/MasterTheGame/master'
 
 
 if path not in sys.path:
