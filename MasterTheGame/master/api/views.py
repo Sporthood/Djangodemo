@@ -423,9 +423,8 @@ def remove_session(request,data):
 def player_sessions(request,data):
     try:
         user_id = data['user_id']
-        session_id = data['session_id']
         player= Player.objects.get(id=user_id)
-        past_sessions = Session.objects.filter(players__id = player.id,id=session_id,start_time__lte=datetime.datetime.now()).order_by('start_time')
+        past_sessions = Session.objects.filter(players__id = player.id,start_time__lte=datetime.datetime.now()).order_by('start_time')
         session_list = []
         if past_sessions.count()>0:
             for session in past_sessions:
