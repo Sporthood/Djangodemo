@@ -441,3 +441,47 @@ def player_sessions(request,data):
         return json_response({"status": 1,"data":session_list, "success_message": "player sessions success"})
     except Exception as E:
         return  custom_error("player session api failed")
+
+
+@csrf_exempt
+@checkinput('POST')
+def create_rating(request,data):
+    try:
+        user_id=data['user_id']
+        session_id= data['session_id']
+        game_intelligence=data['game_intelligence']
+        recieving=data['recieving']
+        passing=data['passing']
+        dribbling=data['dribbling']
+        attacking=data['attacking']
+        defending=data['defending']
+        endurance=data['endurance']
+        injuriy_details=data['injuriy_details']
+        is_attended=data['is_attended']
+        skill_tracker= Skill_tracker()
+        user = Player.objects.get(id=user_id)
+        session = Session.objects.get(id=session_id)
+        skill_tracker.player = user
+        skill_tracker.session =session
+        skill_tracker.game_intelligence =game_intelligence
+        skill_tracker.recieving=recieving
+        skill_tracker.passing=passing
+        skill_tracker.dribbling =dribbling
+        skill_tracker.attacking = attacking
+        skill_tracker.defending =defending
+        skill_tracker.endurance= endurance
+        skill_tracker.injuriy_details =injuriy_details
+        skill_tracker.is_attended=is_attended
+        skill_tracker.save()
+        next_session_dict = {
+                    "id": skill_tracker.id,
+                    "plaqyer": skill_tracker.player.name,
+                    "session_id":skill_tracker.session.id,
+                    "game_intelligence":game_intelligence,
+                    "recieving":recieving,
+                    "passing":passing,
+                    "is_attended":is_attended
+                            }
+        return json_response({"status": 1,"data":next_session_dict, "success_message": " create rating success"})
+    except Exception as E:
+        return  custom_error("create rating api failed")
