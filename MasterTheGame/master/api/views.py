@@ -497,7 +497,7 @@ def endurance_graph(request,data):
         date_list = []
         for skill in skills:
             endurance_list.append(skill.endurance)
-            date_list.append(skill.created_at)
+            date_list.append(str(skill.created_at))
         return json_response({"status": 1,"endurance_list":endurance_list,"date_list":date_list, "success_message": " endurance graph details success"})
     except Exception as E:
         return  custom_error("endurance graph details api failed")
