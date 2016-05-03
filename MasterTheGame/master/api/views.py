@@ -485,3 +485,20 @@ def create_rating(request,data):
         return json_response({"status": 1,"data":next_session_dict, "success_message": " create rating success"})
     except Exception as E:
         return  custom_error("create rating api failed")
+
+
+@csrf_exempt
+@checkinput('POST')
+def endurance_graph(request,data):
+    try:
+        player_id = data['player_id']
+        skills = Skill_tracker.objects.filter(player__id=player_id).order_by('-created_at')
+        endurance_list = []
+        date_list = []
+        for skill in skills:
+            endurance_list.append(skill.endurance)
+            date_list.append(skill.created_at)
+        return json_response({"status": 1,"endurance_list":endurance_list,"date_list":date_list, "success_message": " endurance graph details success"})
+    except Exception as E:
+        return  custom_error("endurance graph details api failed")
+
