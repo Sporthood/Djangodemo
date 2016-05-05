@@ -178,7 +178,7 @@ class Skill_tracker(models.Model):
     dribbling =models.FloatField(default=2.5, null=True, blank=True)
     attacking =models.FloatField(default=2.5, null=True, blank=True)
     defending = models.FloatField(default=2.5, null=True, blank=True)
-    endurance = models.CharField(max_length=100,null=True,blank=True)
+    endurance = models.FloatField(default=2.5,null=True,blank=True)
     injuriy_details = models.FloatField(null=True,blank=True)
     session = models.ForeignKey('Session')
     player = models.ForeignKey('Player')

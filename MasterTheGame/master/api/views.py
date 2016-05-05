@@ -519,3 +519,21 @@ def weight_graph(request,data):
         return json_response({"status": 1,"weight_list":weight_list,"date_list":date_list, "success_message": " weight graph details success"})
     except Exception as E:
         return  custom_error("weight graph details api failed")
+
+
+
+@csrf_exempt
+@checkinput('POST')
+def skill_graph(request,data):
+    try:
+        player_id = data['player_id']
+        skills = Skill_tracker.objects.filter(player__id=player_id).order_by('-created_at')
+        skill_list = []
+        date_list = []
+        for skill in skills:
+            total_skill =(skill.game_intelligence)+(skill.attacking)+(skill.recieving)+(skill.passing)+(skill.dribbling)+(skill.defending)
+            skill_list.append(total_skill)
+            date_list.append(str(skill.created_at))
+        return json_response({"status": 1,"skill_list":skill_list,"date_list":date_list, "success_message": " skill graph details success"})
+    except Exception as E:
+        return  custom_error("skill graph details api failed")
