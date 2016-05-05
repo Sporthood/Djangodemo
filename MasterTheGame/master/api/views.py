@@ -502,3 +502,20 @@ def endurance_graph(request,data):
     except Exception as E:
         return  custom_error("endurance graph details api failed")
 
+
+
+
+@csrf_exempt
+@checkinput('POST')
+def weight_graph(request,data):
+    try:
+        player_id = data['player_id']
+        skills = Skill_tracker.objects.filter(player__id=player_id).order_by('-created_at')
+        weight_list = []
+        date_list = []
+        for skill in skills:
+            weight_list.append(skill.weight)
+            date_list.append(str(skill.created_at))
+        return json_response({"status": 1,"weight_list":weight_list,"date_list":date_list, "success_message": " weight graph details success"})
+    except Exception as E:
+        return  custom_error("weight graph details api failed")
