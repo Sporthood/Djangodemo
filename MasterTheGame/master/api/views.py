@@ -88,10 +88,10 @@ def buddy_login(request, data):
 def forgot_password(request, data):
     try:
         username = data['user_name'].strip()
-        buddy = Buddy.objects.get(user_name=username)
+        player = Player.objects.get(user_name=username)
         subject = "Forgot password mail"
         message = "your password is:"
-        email = buddy.email
+        email = player.email
         send_email(subject,message,email)
 
     except Exception as e:
