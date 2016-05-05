@@ -183,3 +183,4 @@ class Skill_tracker(models.Model):
     session = models.ForeignKey('Session')
     player = models.ForeignKey('Player')
     is_attended = models.BooleanField(default=False)
+    weight = models.FloatField(null=True, blank=True)
