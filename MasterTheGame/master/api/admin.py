@@ -20,6 +20,7 @@ admin.site.register(Team)
 admin.site.register(Buddy_rating)
 admin.site.register(Player_rating)
 admin.site.register(Drill_images)
+admin.site.register(Batch)
 
 
 
