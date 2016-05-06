@@ -106,6 +106,7 @@ class Session(models.Model):
     is_physic_attend = models.BooleanField(default=True)
     players= models.ManyToManyField('Player',related_name='player',null=True,blank=True)
     buddy = models.ManyToManyField('Buddy',null=True,blank=True)
+    batch =models.ForeignKey('Batch',null=True,blank=True)
     max_player_count = models.IntegerField(default=0)
     sports = models.ForeignKey('Sports', null=True, blank=True)
     location = models.ForeignKey('Location', null=True, blank=True)
@@ -184,3 +185,9 @@ class Skill_tracker(models.Model):
     player = models.ForeignKey('Player')
     is_attended = models.BooleanField(default=False)
     weight = models.FloatField(null=True, blank=True)
+
+class Batch(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    batch_start_time = models.DateTimeField(null=True,blank=True)
+    players= models.ManyToManyField('Player',related_name='Bplayer',null=True,blank=True)

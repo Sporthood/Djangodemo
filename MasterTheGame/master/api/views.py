@@ -143,6 +143,8 @@ def user_signup(request,data):
 
     if Player.objects.filter(phone=phone).exists():
         return custom_error("User with the same phone number already exists.")
+    if Player.objects.filter(user_name=user_name).exists():
+        return custom_error("User with the same username already exists.")
     try:
         player= Player()
         player.name=name
