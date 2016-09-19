@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*- 
 ﻿import os
 
 DEBUG = True
@@ -13,9 +15,9 @@ SITE_URL = 'http://127.0.0.1:8000/'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'Master',
+        'NAME': 'testdb',
         'USER': 'postgres',
-        'PASSWORD': 'newPassword',
+        'PASSWORD': 'password',
         'HOST': 'localhost',
         'PORT': '5432',
     }
